@@ -1,4 +1,4 @@
-#Chrome launching
+#Edge launching
 import time
 
 from selenium import webdriver
