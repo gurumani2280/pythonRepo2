@@ -48,9 +48,18 @@ Fixture: https://docs.pytest.org/en/7.1.x/how-to/fixtures.html#fixture-parametri
 9. generating html report
 Library: https://pypi.org/project/pytest-html/
 pip install pytest-html
+Example : 
+1. pytest -v -s --html=report2.html Pack5
+2. pytest -v -s -m sampleTest --html=report2.html -> Used marked to execute
 
 Documentation: https://pytest-html.readthedocs.io/en/latest/user_guide.html#ansi-codes
 
 conftest.py
 def pytest_html_report_title(report):
     report.title = "My very own title!"
+
+10. Running parallely,
+pip3 install pytest-xdist
+Example: pytest -v -s --html=report2.html -n=2 Pack5
+
+https://www.tutorialspoint.com/pytest/pytest_run_tests_in_parallel.htm
