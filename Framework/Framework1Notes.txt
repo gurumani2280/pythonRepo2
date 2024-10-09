@@ -1,0 +1,45 @@
+Created a package "tests", inside tests created conftest.py - if you want to run it from the tests folder.
+if you are running from Framework root folder then conftest can be put in the Framework folder instead of tests folder
+import pytest
+from selenium import webdriver
+
+
+@pytest.fixture(scope="class")
+def init(request):
+    driver = webdriver.Chrome()
+    driver.implicitly_wait(20)
+    driver.maximize_window()
+    driver.get("https://www.saucedemo.com/v1/")
+    request.cls.driver = driver
+    yield
+    driver.quit()
+
+Important Lines in conftest.py fixture :
+1.@pytest.fixture(scope="class")
+2.request.cls.driver = driver
+    Getting driver as a class/static variable
+3.Yield
+
+create a test_login.py and create a class(TestLogin) and a test method(test_login)
+@pytest.mark.usefixtures("init")
+class TestLogin():
+    def test_login(self):
+        username_element = TestLogin.driver.find_element(By.ID, "user-name")
+        username_element.send_keys("standard_user")
+        time.sleep(2)
+        password_element = TestLogin.driver.find_element(By.ID, "password")
+        password_element.send_keys("secret_sauce")
+        time.sleep(2)
+        login = TestLogin. driver.find_element(By.ID, "login-button")
+        login.click()
+        time.sleep(4)
+
+
+Important lines are :
+1.@pytest.mark.usefixtures("init")
+2.Instead of cls we can use self also to access
+
+
+How to run from the terminal parallely to the file run.
+1.Install pytest-xdist
+2.Open terminal and provide pytest -n=2
